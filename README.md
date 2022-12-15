@@ -10,7 +10,7 @@ To generate windows of size 128 with 50% overlapping, and return clients data se
 python main.py --ws 128 --ov 50 -c 
 ```
 
-If one want to merge all clients data into a single array, then the "-c" argument should be removed. That is:
+To merge all clients data into a single array, then the "-c" argument should be removed. That is:
 
 ```
 python main.py --ws 128 --ov 50
