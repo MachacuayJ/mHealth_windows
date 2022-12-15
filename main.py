@@ -33,6 +33,6 @@ if args.by_client:
 else:
     dataset = np.array(load_mHealth())
     windowed_data, window_labels = time_window(dataset, window_size, overlapping)
-    features = handcrafted_features(windowed_data, [mean, rango, std, max, min])
+    features = handcrafted_features(windowed_data, [mean, var, std, min, max, median, sem])
     np.save("output_data/mHealth_features.npy", features)
     np.save("output_data/mHealth_labels.npy", window_labels)
