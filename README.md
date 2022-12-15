@@ -16,8 +16,16 @@ Then, move to the donwloaded directory:
 cd mHealth_windows
 ```
 
+Install the required dependencies:
+
+```
+pip install -r requirements.txt
+```
+
 Finally, run the "main.py" script specifying the window size (-ws), the overlapping (-ov), and whether merge all data clients or not (if not, include "-c" as argument). For instance, to get the data by clients separately with 128 samples per window and 50% overlapping, use the following command:
 
 ```
 python main.py -ws 128 -ov 50 -c
 ```
+
+After running the above command, an "output_data" directory will be created according to the given arguments.
