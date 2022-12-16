@@ -16,15 +16,22 @@ def time_window(data, window_size, overlapping=0.5, label_index=-1):
     if label_index == -1:
         label_index = data.shape[1]-1
     feature_index = [i for i in range(data.shape[1]) if i != label_index]
+
     windows = []
     window_labels = []
-    c = 0
-    prev_rec = int(overlapping*window_size)
-    while c+window_size < data.shape[0]:
-        window = data[c:c + window_size, feature_index]
-        windows.append(window)
-        window_labels.append(data[c+window_size-1, label_index])
-        c += window_size - prev_rec
+
+    classes = np.unique(data[:, label_index])
+    prev_rec = int(overlapping * window_size)
+
+    for given_class in classes:
+        sub_data = data[data[:, label_index] == given_class]
+        c = 0
+        while c+window_size < sub_data.shape[0]:
+            window = sub_data[c:c + window_size, feature_index]
+            windows.append(window)
+            window_labels.append(sub_data[c+window_size-1, label_index])
+            c += window_size - prev_rec
+
     return np.array(windows), np.array(window_labels)
 
 
