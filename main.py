@@ -20,6 +20,8 @@ args = parser.parse_args()
 overlapping = args.overlapping/100
 window_size = args.window_size
 
+functions = [mean, rango, std, max, min]  # old: [mean, var, std, min, max, median, sem]  # new: [mean, rango, std, max, min]
+
 if "output_data" not in os.listdir():
   os.mkdir("output_data")
 
@@ -27,12 +29,13 @@ if args.by_client:
     dataset = load_mHealth(subjects=True)
     for c, dataset_subject in enumerate(dataset):
         windowed_data, window_labels = time_window(np.array(dataset_subject), window_size, overlapping)
-        features = handcrafted_features(windowed_data, [mean, var, std, min, max, median, sem])
+        features = handcrafted_features(windowed_data, functions)
         np.save("output_data/mHealth_features_S{}.npy".format(c + 1), features)
         np.save("output_data/mHealth_labels_S{}.npy".format(c + 1), window_labels)
 else:
     dataset = np.array(load_mHealth())
     windowed_data, window_labels = time_window(dataset, window_size, overlapping)
-    features = handcrafted_features(windowed_data, [mean, var, std, min, max, median, sem])
+    features = handcrafted_features(windowed_data, functions)
     np.save("output_data/mHealth_features.npy", features)
     np.save("output_data/mHealth_labels.npy", window_labels)
+
